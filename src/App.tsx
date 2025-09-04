@@ -15,6 +15,28 @@ import tower from "./assets/tower.png";
 import butterfly from "./assets/butterfly.gif";
 import blueprint from "./assets/blueprint.png";
 
+// --- Types ---
+type Photo = { src: string; title: string; desc?: string };
+type PhotographySeries = { title: string; idea: string; photos: Photo[] };
+type GameWork = { video: string; poster?: string; caption: string };
+type Sprite = { src: string; title: string; desc?: string };
+type Baking = { image: string; blurb: string };
+
+type SectionProps = {
+  title: string;
+  id: string;
+  icon?: React.ReactNode;
+  children: React.ReactNode;
+};
+
+type LightboxProps = {
+  photos: Photo[];
+  index: number;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+};
+
 // ---------------------------
 //             DATA 
 // ---------------------------
@@ -25,49 +47,54 @@ const PROFILE = {
   bio: "I’m an indie game developer (in progress)",
 };
 
-const PHOTOGRAPHY_SERIES = {
+const PHOTOGRAPHY_SERIES: PhotographySeries = {
   title: "Electric Food",
   idea:
     "One day, as I ate and scrolled through my phone, I realized I was being fed twice. Once by the meal in front of me, and once by the endless stream of digital information.This series grows out of that moment. A steak with wired rosemary, a banana bound in cables, grapes shaped into lungs — each piece reimagines nourishment through the lens of technology. For me, it’s about exploring the strange balance between what sustains our bodies and what sustains our digital lives.",
   photos: [
-    { src: Beef, title: "Stake & Rosemary Circuit", desc: ""},
-    { src: Carrot, title: "Carrot Clock", desc: ""},
-    { src: Lemonade, title: "High Voltage Lemonade", desc: ""},
+    { src: Beef, title: "Stake & Rosemary Circuit", desc: "" },
+    { src: Carrot, title: "Carrot Clock", desc: "" },
+    { src: Lemonade, title: "High Voltage Lemonade", desc: "" },
     { src: Banana, title: "\"The $120000 Banana\"", desc: "" },
-    { src: Apple, title: "Fruit Spectrum", desc: ""},
-    { src: Blubarry, title: "Blue Electroberry", desc: ""},
-    { src: Grape, title: "Grape Lungs", desc: ""},
-    { src: Oreo, title: "Binary Oreos", desc: ""},
+    { src: Apple, title: "Fruit Spectrum", desc: "" },
+    { src: Blubarry, title: "Blue Electroberry", desc: "" },
+    { src: Grape, title: "Grape Lungs", desc: "" },
+    { src: Oreo, title: "Binary Oreos", desc: "" },
   ],
 };
 
-const GAME_WORK = {
-  video: game_demo, // replace with your gameplay clip
-  poster: tower, // optional
-  caption: "Quickly go over the part of the game where the player gathers resources—picking berries, chopping trees, and mining stone and following the butterfly guide into the dungeon to fight against the boss.",
+const GAME_WORK: GameWork = {
+  video: game_demo,
+  poster: tower,
+  caption:
+    "Quickly go over the part of the game where the player gathers resources—picking berries, chopping trees, and mining stone and following the butterfly guide into the dungeon to fight against the boss.",
 };
 
-const SPRITES = [
+const SPRITES: Sprite[] = [
   { src: signal, title: "Signal" },
   { src: tower, title: "Tower (Repaired & Broken)" },
-  { src: butterfly, title: "Butterfly Guide"},
+  { src: butterfly, title: "Butterfly Guide" },
   { src: blueprint, title: "Blue Print" },
 ];
 
-const BAKING = {
-  image:backing,
-  blurb: "Here is the most recent gift (six flavor biscuits) I made for my neighbor and new friends when I moved to Providence.",
+const BAKING: Baking = {
+  image: backing,
+  blurb:
+    "Here is the most recent gift (six flavor biscuits) I made for my neighbor and new friends when I moved to Providence.",
 };
 
 // ---------------------------
 // Small UI helpers (pure React)
 // ---------------------------
-function Section({ title, icon, id, children }) {
+function Section({ title, icon, id, children }: SectionProps) {
   return (
     <section id={id} className="section">
       <div className="card">
         <div className="card-header">
-          <div className="card-title"><span className="icon" aria-hidden>{icon}</span>{title}</div>
+          <div className="card-title">
+            <span className="icon" aria-hidden>{icon}</span>
+            {title}
+          </div>
         </div>
         <div className="card-content">{children}</div>
       </div>
@@ -78,20 +105,20 @@ function Section({ title, icon, id, children }) {
 // ---------------------------
 // Lightbox (overlay) for photos
 // ---------------------------
-function Lightbox({ photos, index, onClose, onPrev, onNext }) {
+function Lightbox({ photos, index, onClose, onPrev, onNext }: LightboxProps) {
   const photo = photos[index];
 
   React.useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowRight') onNext();
-      if (e.key === 'ArrowLeft') onPrev();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") onNext();
+      if (e.key === "ArrowLeft") onPrev();
     };
-    document.addEventListener('keydown', onKey);
-    document.documentElement.style.overflow = 'hidden';
+    document.addEventListener("keydown", onKey);
+    document.documentElement.style.overflow = "hidden";
     return () => {
-      document.removeEventListener('keydown', onKey);
-      document.documentElement.style.overflow = '';
+      document.removeEventListener("keydown", onKey);
+      document.documentElement.style.overflow = "";
     };
   }, [onClose, onPrev, onNext]);
 
@@ -102,7 +129,13 @@ function Lightbox({ photos, index, onClose, onPrev, onNext }) {
       <button className="lb-nav lb-prev" onClick={onPrev} aria-label="Previous image">‹</button>
       <button className="lb-nav lb-next" onClick={onNext} aria-label="Next image">›</button>
 
-      <div className="lb-stage" onClick={(e) => { if (e.target.classList.contains('lb-stage')) onClose(); }}>
+      {/* Use currentTarget === target instead of target.classList */}
+      <div
+        className="lb-stage"
+        onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+          if (e.currentTarget === e.target) onClose();
+        }}
+      >
         <figure className="lb-figure">
           <img className="lb-img" src={photo.src} alt={photo.title} />
           <figcaption className="lb-caption">
@@ -116,15 +149,21 @@ function Lightbox({ photos, index, onClose, onPrev, onNext }) {
   );
 }
 
+
 // ---------------------------
 // MAIN COMPONENT
 // ---------------------------
 export default function App() {
-  const [lightboxIndex, setLightboxIndex] = React.useState(null);
-  const open = (i) => setLightboxIndex(i);
-  const close = () => setLightboxIndex(null);
-  const next = () => setLightboxIndex((i) => (i + 1) % PHOTOGRAPHY_SERIES.photos.length);
-  const prev = () => setLightboxIndex((i) => (i - 1 + PHOTOGRAPHY_SERIES.photos.length) % PHOTOGRAPHY_SERIES.photos.length);
+const [lightboxIndex, setLightboxIndex] = React.useState<number | null>(null);
+
+const open = (i: number) => setLightboxIndex(i);
+const close = () => setLightboxIndex(null);
+
+const next = () =>
+  setLightboxIndex((i) => ((i ?? 0) + 1) % PHOTOGRAPHY_SERIES.photos.length);
+
+const prev = () =>
+  setLightboxIndex((i) => ((i ?? 0) - 1 + PHOTOGRAPHY_SERIES.photos.length) % PHOTOGRAPHY_SERIES.photos.length);
 
   return (
     <div className="page">
@@ -197,7 +236,7 @@ export default function App() {
                   </div>
                   <div className="pad">
                     <div className="fig-title">{s.title}</div>
-                    <div className="fig-desc small">{s.desc}</div>
+                    {s.desc && <div className="fig-desc small">{s.desc}</div>}
                   </div>
                 </div>
               ))}

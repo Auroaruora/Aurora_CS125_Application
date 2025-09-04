@@ -52,14 +52,14 @@ const PHOTOGRAPHY_SERIES: PhotographySeries = {
   idea:
     "One day, as I ate and scrolled through my phone, I realized I was being fed twice. Once by the meal in front of me, and once by the endless stream of digital information.This series grows out of that moment. A steak with wired rosemary, a banana bound in cables, grapes shaped into lungs — each piece reimagines nourishment through the lens of technology. For me, it’s about exploring the strange balance between what sustains our bodies and what sustains our digital lives.",
   photos: [
-    { src: Beef, title: "Stake & Rosemary Circuit", desc: "" },
-    { src: Carrot, title: "Carrot Clock", desc: "" },
-    { src: Lemonade, title: "High Voltage Lemonade", desc: "" },
-    { src: Banana, title: "\"The $120000 Banana\"", desc: "" },
-    { src: Apple, title: "Fruit Spectrum", desc: "" },
-    { src: Blubarry, title: "Blue Electroberry", desc: "" },
-    { src: Grape, title: "Grape Lungs", desc: "" },
-    { src: Oreo, title: "Binary Oreos", desc: "" },
+    { src: Beef, title: "Stake & Rosemary Circuit", desc: "A raw steak on a black plate with green wires shaped into rosemary on top. Butter cubes lay nearby with some salt sprinkled around." },
+    { src: Carrot, title: "Carrot Clock", desc: "A white plate made to look like a clock. Around the edge are carrots at different stages of life, from the youngest sprout at the top to the oldest and most grown just before reaching the top again. Gold wires form the clock hands, marking the passing of time." },
+    { src: Lemonade, title: "High Voltage Lemonade", desc: "A glass of Lemonade with slices of lemon sits on a bright surface. Instead of a normal straw, a golden wire is made to represent the straw." },
+    { src: Banana, title: "\"The $120000 Banana\"", desc: "A banana taped to a wall, but instead of tape, it’s held by green wire wrapped around it." },
+    { src: Apple, title: "Fruit Spectrum", desc: "Slices of lime and apple are lined up on a white plate. Beside them, silver wire rings are placed like another kind of slice." },
+    { src: Blubarry, title: "Blue Electroberry", desc: "A dish of cream with blueberries and small balls made of blue wire that look like berries." },
+    { src: Grape, title: "Grape Lungs", desc: "Dark grapes are arranged in the shape of human lungs. Pink and green wires connect them like airways." },
+    { src: Oreo, title: "Binary Oreos", desc: "Three Oreo cookies lined up. One has cream replaced with a wire coil, one is whole, and another is half cookie with wire inside." },
   ],
 };
 

@@ -9,7 +9,7 @@ import Grape from "./assets/Grape.jpg";
 import Oreo from "./assets/Oreo.jpg";
 import backing from "./assets/backing.jpg";
 import me from "./assets/me.jpg";
-import game_demo from "./assets/game_demo.mov";
+import game_demo from "./assets/game_demo.mp4";
 import signal from "./assets/signal.gif";
 import tower from "./assets/tower.png";
 import butterfly from "./assets/butterfly.gif";
